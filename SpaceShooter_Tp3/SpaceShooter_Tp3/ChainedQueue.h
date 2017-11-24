@@ -8,8 +8,9 @@ representée a l'aide de boîtes contenant la valeur
 stockée et un pointeur vers la suivante. Nou avons
 la première et la dernière boîte comme limites.
 
-Utilisation: Liste d'ennemies à mettre dans le jeu
-			 Liste des projectiles du jeu
+Utilisation: -Liste d'ennemies à mettre dans le jeu
+			 -Liste des projectiles du jeu
+			 -Accumulation de commande
 */
 #ifndef _CHAINED_QUEUE_H_
 

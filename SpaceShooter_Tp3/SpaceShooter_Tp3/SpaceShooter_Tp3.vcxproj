@@ -98,6 +98,9 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Testeur.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ressources\Background.jpg" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
