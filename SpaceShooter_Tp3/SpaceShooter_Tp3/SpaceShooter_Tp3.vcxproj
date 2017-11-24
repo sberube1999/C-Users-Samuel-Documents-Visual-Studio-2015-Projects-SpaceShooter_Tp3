@@ -88,18 +88,24 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Star.cpp" />
     <ClCompile Include="Testeur.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="ChainedQueue.h" />
     <ClInclude Include="DoubleChainedList.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Star.h" />
     <ClInclude Include="Testeur.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Ressources\Background.jpg" />
+    <Image Include="Ressources\LeftHUD.png" />
+    <Image Include="Ressources\RightHUD.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

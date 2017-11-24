@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "Game.h"
+#include "Background.h"
 #include <string>
 
 using namespace sf;
@@ -29,9 +30,8 @@ namespace spaceShooter
 		Event event;
 
 		//<sberube>
-		Sprite background;
-		Texture bgTexture;
-		const std::string bgTexturePath = "Ressources\\Background.jpg";
+
+		Background background;
 
 		float leftLimit = 20;
 		float rightLimit = mainWin.getSize().x - 20;

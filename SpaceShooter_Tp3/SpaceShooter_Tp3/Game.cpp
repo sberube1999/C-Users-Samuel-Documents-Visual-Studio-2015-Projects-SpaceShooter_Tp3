@@ -38,13 +38,11 @@ int Game::run()
 
 bool Game::init()
 {
-	if (!bgTexture.loadFromFile(bgTexturePath))
+	if (!background.Init(mainWin))
 	{
 		return false;
 	}
-	background.setTexture(bgTexture);
-	background.setOrigin(bgTexture.getSize().x / 2, bgTexture.getSize().y / 2);
-	background.setPosition(mainWin.getSize().x / 2, 0);
+
 	return true;
 }
 
@@ -63,17 +61,13 @@ void Game::getInputs()
 
 void Game::update()
 {
-	background.setPosition(background.getPosition().x, background.getPosition().y + 3);
-	if (background.getPosition().y - bgTexture.getSize().y / 2 > 0)
-	{
-		background.setPosition(mainWin.getSize().x / 2, 0);
-	}
+	background.Update(mainWin);
 }
 
 void Game::draw()
 {
 	//Toujours important d'effacer l'écran précédent
 	mainWin.clear();
-	mainWin.draw(background);
+	background.Draw(mainWin);
 	mainWin.display();
 }
