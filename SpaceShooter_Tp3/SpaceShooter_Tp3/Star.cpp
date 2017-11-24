@@ -3,7 +3,7 @@
 
 using namespace spaceShooter;
 
-Star::Star() : speed(2), brtChance(2)
+Star::Star() : brtChance(2)
 {
 	shape.setRadius(2);
 	shape.setFillColor(Color::White);
@@ -16,9 +16,6 @@ bool Star::Init()
 
 void Star::Update()
 {
-	// Le mouvement
-	shape.setPosition(shape.getPosition().x, shape.getPosition().y + speed);
-
 	// Le brillant des étoiles
 	int random = rand() % 100;
 	if (random < brtChance)

@@ -28,8 +28,6 @@ namespace spaceShooter
 
 		int brtChance; // pourcentage
 		const Color colors[3]{Color::White, Color(225,225,225,0.9), Color(225,225,225,0.8)};
-		
-		float speed;
 	};
 }
 // </sberube>

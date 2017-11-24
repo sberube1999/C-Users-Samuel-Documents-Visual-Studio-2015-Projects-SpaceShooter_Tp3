@@ -60,6 +60,7 @@ void Background::Update(RenderWindow &win)
 	// les étoiles
 	for (size_t i = 0; i < stars.size(); i++)
 	{
+		stars.at(i).SetPosition(stars.at(i).GetPosition().x, stars.at(i).GetPosition().y + starSpeed);
 		stars.at(i).Update();
 		if (stars.at(i).GetPosition().y > win.getSize().y)
 		{
