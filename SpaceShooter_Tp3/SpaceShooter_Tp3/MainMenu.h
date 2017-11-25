@@ -31,6 +31,7 @@ namespace spaceShooter
         Font font;
         //Le bouton "play"
         Button buttonPlay;
+		Button exitButton;
 
         //Ne fait pas beaucoup sens à un Textbox, mais à plusieurs, ça le fera.
         Button* currentButton = nullptr;
@@ -38,7 +39,8 @@ namespace spaceShooter
         enum ButtonType
         {
             NONE,
-            PLAY_BUTTON
+            PLAY_BUTTON,
+			EXIT
         };
         ButtonType currentButtonType = NONE;
     };

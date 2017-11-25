@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "MainMenu.h"
 #include "GameScene.h"
+#include "EndScreen.h"
 
 using namespace spaceShooter;
 
@@ -9,7 +10,7 @@ Game::Game()
 {
     //On place dans le contructeur ce qui permet à la game elle-même de fonctionner
     setlocale(LC_ALL, "");
-    mainWin.create(VideoMode(LARGEUR, HAUTEUR, 32), "Platformer");  // , Style::Titlebar); / , Style::FullScreen);
+    mainWin.create(VideoMode(LARGEUR, HAUTEUR, 32), "Platformer", Style::Titlebar);  // , Style::Titlebar); / , Style::FullScreen);
 
                                                                     //Synchonisation coordonnée à l'écran!  Normalement 60 frames par secondes. À faire absolument
     mainWin.setVerticalSyncEnabled(true);
@@ -50,6 +51,9 @@ int Game::run()
             case Scene::scenes::GAME:
                 sceneActive = new GameScene();
                 break;
+			case Scene::scenes::END_GAME:
+				sceneActive = new EndScreen();
+				break;
             }
 
             if (sceneActive->init(&mainWin))

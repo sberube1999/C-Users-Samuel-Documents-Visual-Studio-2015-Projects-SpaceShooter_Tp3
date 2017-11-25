@@ -43,6 +43,11 @@ bool MainMenu::init(RenderWindow * const window)
     buttonPlay.SetFontColor(GameStyle::gameFontColor);
     buttonPlay.SetSize(window->getSize().x / 2, window->getSize().y / 15);
 
+	exitButton.init(500, 15, Vector2f(window->getSize().x / 2, window->getSize().y / 2 + 215), font);
+	exitButton.insererTexte("Exit Game");
+	exitButton.SetFontColor(GameStyle::gameFontColor);
+	exitButton.SetSize(window->getSize().x / 2, window->getSize().y / 15);
+
     this->mainWin = window;
     isRunning = true;
 
@@ -72,6 +77,12 @@ void MainMenu::getInputs()
                 currentButton->selectionner(GameStyle::gameButtonColor);
                 currentButtonType = PLAY_BUTTON;
             }
+			else if (exitButton.touche(Mouse::getPosition(*mainWin)))
+			{
+				currentButton = &exitButton;
+				currentButton->selectionner(GameStyle::gameButtonColor);
+				currentButtonType = EXIT;
+			}
             else
             {
                 //Sinon aucun textbox actif
@@ -91,6 +102,11 @@ void MainMenu::update()
         transitionVersScene = Scene::GAME;
         isRunning = false;
     }
+	else if (currentButtonType == EXIT)
+	{
+		transitionVersScene = Scene::EXIT;
+		isRunning = false;
+	}
 }
 
 void MainMenu::draw()
@@ -98,6 +114,7 @@ void MainMenu::draw()
     mainWin->clear();
     mainWin->draw(ecranTitre);
     buttonPlay.dessiner(mainWin);
+	exitButton.dessiner(mainWin);
     mainWin->display();
 }
 
