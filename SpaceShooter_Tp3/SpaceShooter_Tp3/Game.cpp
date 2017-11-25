@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "MainMenu.h"
 #include "GameScene.h"
+#include "Observer.h"
 
 using namespace spaceShooter;
 
