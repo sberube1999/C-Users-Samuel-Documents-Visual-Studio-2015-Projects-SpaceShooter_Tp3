@@ -113,3 +113,7 @@ void GameScene::draw()
     //Afficher la nouvelle écran
     mainWin->display();
 }
+
+void spaceShooter::GameScene::Notify(Subject * subject)
+{
+}

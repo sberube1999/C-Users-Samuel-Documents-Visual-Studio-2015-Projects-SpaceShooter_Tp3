@@ -3,7 +3,7 @@
 #include "MainMenu.h"
 #include "GameScene.h"
 #include "EndScreen.h"
-
+#include "Observer.h"
 using namespace spaceShooter;
 
 Game::Game()
