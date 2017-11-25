@@ -25,8 +25,24 @@ namespace spaceShooter
 	private:
 
         //<smasson>
+        void UpdateHUD();
+
+        const int LBL_SPACEMENT = 150;
+
+        Font font;
 
         int interfaceCommande;
+
+        int default = 0;
+        //Labels de statistiques
+        Text scoreMultiplicatorLabel;
+        Text currentScoreLabel;
+        Text lifesLabel;
+        Text shieldLabel;
+        Text curWeaponLabel;
+        Text munitionsLabel;
+        Text nextEnemyLabel;
+        
 
         //</smasson>
 

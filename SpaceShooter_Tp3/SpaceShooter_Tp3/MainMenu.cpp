@@ -45,7 +45,7 @@ bool MainMenu::init(RenderWindow * const window)
 
 	exitButton.init(500, 15, Vector2f(window->getSize().x / 2, window->getSize().y / 2 + 215), font);
 	exitButton.insererTexte("Exit Game");
-	exitButton.SetFontColor(GameStyle::gameFontColor);
+	exitButton.SetFontColor(GameStyle::gameRedColor);
 	exitButton.SetSize(window->getSize().x / 2, window->getSize().y / 15);
 
     this->mainWin = window;

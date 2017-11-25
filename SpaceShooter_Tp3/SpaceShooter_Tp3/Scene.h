@@ -12,7 +12,7 @@ namespace spaceShooter
     class Scene
     {
     public:
-        //Quand vos ajouterez des scènes, ajouter un enum ici
+        //Les scènes disponibles
         enum scenes { MAIN_MENU, GAME, END_GAME, EXIT };
 
         virtual ~Scene() {}  //Pour que le destructeur de l'objet en mémoire soit apellé

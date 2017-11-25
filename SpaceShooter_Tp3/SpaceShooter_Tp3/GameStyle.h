@@ -10,5 +10,7 @@ namespace spaceShooter
     public:
         static Color gameButtonColor;
         static Color gameFontColor;
+        static Color gameRedColor;
+        static int inGameFontSize;
     };
 }
