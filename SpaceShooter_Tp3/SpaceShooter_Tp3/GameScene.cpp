@@ -1,9 +1,11 @@
 #include "GameScene.h"
+#include "GameStyle.h"
 
 using namespace spaceShooter;
 
 GameScene::GameScene()
 {
+    player = Player::GetInstance();
 }
 
 GameScene::~GameScene()
@@ -34,8 +36,57 @@ bool GameScene::init(RenderWindow * const window)
     {
     return false;
     }*/
-    // </smasson>
+    //Init du font:
+    if (!font.loadFromFile("Ressources\\Fonts\\STJEDISE.ttf"))
+        return false;
+    //</smasson>
 
+#pragma region HUD
+    //<smasson>
+    //Initialisation du HUD
+    //Le multiplicateur de score:
+    scoreMultiplicatorLabel.setFont(font);
+    scoreMultiplicatorLabel.setCharacterSize(GameStyle::inGameFontSize);
+    scoreMultiplicatorLabel.setFillColor(GameStyle::gameFontColor);
+    scoreMultiplicatorLabel.setPosition(window->getSize().x - 265, window->getSize().y - 700);
+
+    //Le score courant:
+    currentScoreLabel.setFont(font);
+    currentScoreLabel.setCharacterSize(GameStyle::inGameFontSize);
+    currentScoreLabel.setFillColor(GameStyle::gameFontColor);
+    currentScoreLabel.setPosition(window->getSize().x - 265, window->getSize().y -700 + LBL_SPACEMENT);
+
+    //Le prochain ennemi à apparaître:
+    nextEnemyLabel.setFont(font);
+    nextEnemyLabel.setCharacterSize(GameStyle::inGameFontSize);
+    nextEnemyLabel.setFillColor(GameStyle::gameFontColor);
+    nextEnemyLabel.setPosition(window->getSize().x - 265, window->getSize().y - 700 + LBL_SPACEMENT * 2);
+
+    //Le nombre de points de vie du joueur
+    lifesLabel.setFont(font);
+    lifesLabel.setCharacterSize(GameStyle::inGameFontSize);
+    lifesLabel.setFillColor(GameStyle::gameRedColor);
+    lifesLabel.setPosition(10, window->getSize().y - 700);
+
+    //Le nombre de points de vie du shield courant du joueur
+    shieldLabel.setFont(font);
+    shieldLabel.setCharacterSize(GameStyle::inGameFontSize);
+    shieldLabel.setFillColor(GameStyle::gameRedColor);
+    shieldLabel.setPosition(10, window->getSize().y -700 + LBL_SPACEMENT);
+
+    //L'arme courante du joueur
+    curWeaponLabel.setFont(font);
+    curWeaponLabel.setCharacterSize(GameStyle::inGameFontSize);
+    curWeaponLabel.setFillColor(GameStyle::gameRedColor);
+    curWeaponLabel.setPosition(10, window->getSize().y -700 + LBL_SPACEMENT * 2);
+
+    //Le nombre du munitions de l'arme du joueur
+    munitionsLabel.setFont(font);
+    munitionsLabel.setCharacterSize(GameStyle::inGameFontSize);
+    munitionsLabel.setFillColor(GameStyle::gameRedColor);
+    munitionsLabel.setPosition(10, window->getSize().y - 700 + LBL_SPACEMENT * 3);
+    // </smasson>
+#pragma endregion
     //ambianceMusic.setLoop(true);
     //ambianceMusic.setVolume(100);
     //ambianceMusic.play();
@@ -43,7 +94,15 @@ bool GameScene::init(RenderWindow * const window)
     //Initialisation du random time
     srand(time(NULL));
 
-    // </smasson>
+    //<smasson>
+    //Position initiale du joueur
+    player->SetPosition(window->getSize().x / 2, window->getSize().y / 2);
+    testShape = new ConvexShape(3);
+    testShape->setScale(100, 100);
+    testShape->setFillColor(Color::Cyan);
+    testShape->setOrigin(testShape->getScale().x / 2, testShape->getScale().y / 2);
+    testShape->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    //</smasson>
     this->mainWin = window;
     isRunning = true;
 
@@ -99,7 +158,13 @@ void GameScene::getInputs()
 
 void GameScene::update()
 {
+    //Updater le background
     background.Update(*mainWin);
+    //Update du joueur
+    player->Update(interfaceCommande);
+
+    //Updater le HUD
+    UpdateHUD();
 }
 
 void GameScene::draw()
@@ -107,13 +172,39 @@ void GameScene::draw()
     //Toujours important d'effacer l'écran précédent
     mainWin->clear();
     //Dessiner background
-    background.Draw(*mainWin);
+    //background.Draw(*mainWin);
     //Dessiner contenu
-
+    //Dessiner les personnages
+    //Le joueur
+    player->Draw(*mainWin);
+    mainWin->draw(*testShape);
+    //<smasson>
+    //Dessiner le HUD
+    mainWin->draw(scoreMultiplicatorLabel);
+    mainWin->draw(currentScoreLabel);
+    mainWin->draw(lifesLabel);
+    mainWin->draw(shieldLabel);
+    mainWin->draw(curWeaponLabel);
+    mainWin->draw(munitionsLabel);
+    mainWin->draw(nextEnemyLabel);
+    //</smasson>
     //Afficher la nouvelle écran
     mainWin->display();
 }
 
-void spaceShooter::GameScene::Notify(Subject * subject)
+void GameScene::Notify(Subject * subject)
 {
+}
+
+void spaceShooter::GameScene::UpdateHUD()
+{
+    //<smasson>
+    scoreMultiplicatorLabel.setString("Score Bonus: \n" + std::to_string(default));
+    currentScoreLabel.setString("Score: \n" + std::to_string(default));
+    lifesLabel.setString("Health Points: \n" + std::to_string(default));
+    shieldLabel.setString("Shield Lifes: \n" + std::to_string(default));
+    curWeaponLabel.setString("Weapon: \n" + std::to_string(default));
+    munitionsLabel.setString("Shoots Left: \n" + std::to_string(default));
+    nextEnemyLabel.setString("Next Enemy: \n" + std::to_string(default));
+    //</smasson>
 }
