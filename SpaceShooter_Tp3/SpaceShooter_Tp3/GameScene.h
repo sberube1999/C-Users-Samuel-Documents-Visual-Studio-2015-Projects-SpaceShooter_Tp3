@@ -5,6 +5,7 @@
 #include "Background.h"
 #include <string>
 #include "Observer.h"
+#include "Player.h"
 
 using namespace sf;
 
@@ -43,6 +44,8 @@ namespace spaceShooter
         Text munitionsLabel;
         Text nextEnemyLabel;
         
+        Player* player;
+        Shape* testShape;
 
         //</smasson>
 

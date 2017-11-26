@@ -5,6 +5,7 @@ using namespace spaceShooter;
 
 GameScene::GameScene()
 {
+    player = Player::GetInstance();
 }
 
 GameScene::~GameScene()
@@ -93,7 +94,15 @@ bool GameScene::init(RenderWindow * const window)
     //Initialisation du random time
     srand(time(NULL));
 
-    // </smasson>
+    //<smasson>
+    //Position initiale du joueur
+    player->SetPosition(window->getSize().x / 2, window->getSize().y / 2);
+    testShape = new ConvexShape(3);
+    testShape->setScale(100, 100);
+    testShape->setFillColor(Color::Cyan);
+    testShape->setOrigin(testShape->getScale().x / 2, testShape->getScale().y / 2);
+    testShape->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    //</smasson>
     this->mainWin = window;
     isRunning = true;
 
@@ -151,6 +160,8 @@ void GameScene::update()
 {
     //Updater le background
     background.Update(*mainWin);
+    //Update du joueur
+    player->Update(interfaceCommande);
 
     //Updater le HUD
     UpdateHUD();
@@ -161,9 +172,12 @@ void GameScene::draw()
     //Toujours important d'effacer l'écran précédent
     mainWin->clear();
     //Dessiner background
-    background.Draw(*mainWin);
+    //background.Draw(*mainWin);
     //Dessiner contenu
-
+    //Dessiner les personnages
+    //Le joueur
+    player->Draw(*mainWin);
+    mainWin->draw(*testShape);
     //<smasson>
     //Dessiner le HUD
     mainWin->draw(scoreMultiplicatorLabel);
