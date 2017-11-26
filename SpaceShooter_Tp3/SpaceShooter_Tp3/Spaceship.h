@@ -15,20 +15,13 @@ namespace spaceShooter
         virtual void Hit(int points);
         virtual bool Update();
         virtual void Notify(Subject* subject)=0;
-        static enum Direction
-        {
-            NONE,
-            LEFT,
-            RIGHT,
-            UP,
-            DOWN
-        };
-        void Move(Direction dir);
+        void Move(float dirX, float dirY);
         void SetPosition(float x, float y);
         void SetPosition(Vector2f pos);
         virtual void Die();
         void Draw(RenderWindow& mainWin);
         bool IsEnable();
+        void SetEnable(const bool enable);
     protected:
         Texture texture;
         Shape* shape; //Pointeur, car pas de constructeur par défaut
