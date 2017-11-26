@@ -49,6 +49,11 @@ bool EndScreen::init(RenderWindow * const window)
 	exitButton.SetFontColor(GameStyle::gameFontColor);
 	exitButton.SetSize(window->getSize().x / 2, window->getSize().y / 15);
 
+	ScoreLabel.initInfo(Vector2f(window->getSize().x / 2, window->getSize().y / 2 - 50), font, true);
+	ScoreLabel.insererTexte("Score: ");
+	ScoreLabel.SetFontColor(GameStyle::gameFontColor);
+	ScoreLabel.SetSize(window->getSize().x / 2, window->getSize().y / 15);
+
 	this->mainWin = window;
 	isRunning = true;
 
@@ -116,6 +121,7 @@ void EndScreen::draw()
 	mainWin->draw(ecranTitre);
 	replayButton.dessiner(mainWin);
 	exitButton.dessiner(mainWin);
+	ScoreLabel.dessiner(mainWin);
 	mainWin->display();
 }
 
