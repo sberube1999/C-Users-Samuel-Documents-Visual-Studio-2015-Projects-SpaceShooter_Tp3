@@ -22,6 +22,7 @@ namespace spaceShooter
         void Draw(RenderWindow& mainWin);
         bool IsEnable();
         void SetEnable(const bool enable);
+        Shape& GetShape();
     protected:
         Texture texture;
         Shape* shape; //Pointeur, car pas de constructeur par défaut
