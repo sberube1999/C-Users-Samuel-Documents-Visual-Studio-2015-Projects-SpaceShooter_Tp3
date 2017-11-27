@@ -66,6 +66,9 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>Fichiers sources</Filter>
     </ClCompile>
+    <ClCompile Include="GlobalMath.cpp">
+      <Filter>Fichiers sources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -125,21 +128,24 @@
     <ClInclude Include="Spawner.h">
       <Filter>Fichiers d%27en-tête</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Ressources\Background.jpg">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Ressources\LeftHUD.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
-    <Image Include="Ressources\RightHUD.png">
-      <Filter>Fichiers de ressources</Filter>
-    </Image>
+    <ClInclude Include="GlobalMath.h">
+      <Filter>Fichiers d%27en-tête</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Font Include="Ressources\Fonts\STJEDISE.TTF">
       <Filter>Fichiers de ressources</Filter>
     </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Ressources\Background\Background.jpg">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Ressources\Background\LeftHUD.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
+    <Image Include="Ressources\Background\RightHUD.png">
+      <Filter>Fichiers de ressources</Filter>
+    </Image>
   </ItemGroup>
 </Project>

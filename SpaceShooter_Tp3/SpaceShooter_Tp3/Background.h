@@ -20,15 +20,15 @@ namespace spaceShooter
 
 		Sprite background;
 		Texture bgTexture;
-		const std::string bgTexturePath = "Ressources\\Background.jpg";
+		const std::string bgTexturePath = "Ressources\\Background\\Background.jpg";
 
 		Sprite left;
 		Texture leftTexture;
-		const std::string leftTexturePath = "Ressources\\LeftHUD.png";
+		const std::string leftTexturePath = "Ressources\\Background\\LeftHUD.png";
 
 		Sprite right;
 		Texture rightTexture;
-		const std::string rightTexturePath = "Ressources\\RightHUD.png";
+		const std::string rightTexturePath = "Ressources\\Background\\RightHUD.png";
 
 		// Pour l'instant on y va avec un tableau.
 		std::vector<Star> stars;

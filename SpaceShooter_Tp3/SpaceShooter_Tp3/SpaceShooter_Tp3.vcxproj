@@ -95,6 +95,7 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameStyle.cpp" />
+    <ClCompile Include="GlobalMath.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Observer.cpp" />
@@ -116,6 +117,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameStyle.h" />
+    <ClInclude Include="GlobalMath.h" />
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Player.h" />
@@ -128,12 +130,12 @@
     <ClInclude Include="Testeur.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Ressources\Background.jpg" />
-    <Image Include="Ressources\LeftHUD.png" />
-    <Image Include="Ressources\RightHUD.png" />
+    <Font Include="Ressources\Fonts\STJEDISE.TTF" />
   </ItemGroup>
   <ItemGroup>
-    <Font Include="Ressources\Fonts\STJEDISE.TTF" />
+    <Image Include="Ressources\Background\Background.jpg" />
+    <Image Include="Ressources\Background\LeftHUD.png" />
+    <Image Include="Ressources\Background\RightHUD.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

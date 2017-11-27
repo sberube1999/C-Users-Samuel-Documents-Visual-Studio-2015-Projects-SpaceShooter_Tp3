@@ -154,11 +154,11 @@ void GameScene::getInputs()
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
     {
-        interfaceCommande |= 10;
+        interfaceCommande |= 16;
     }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        interfaceCommande |= 12;
+        interfaceCommande |= 32;
     }
     //</smasson>
 }
@@ -166,7 +166,7 @@ void GameScene::getInputs()
 void GameScene::update()
 {
     //Updater le background
-    //background.Update(*mainWin);
+    background.Update(*mainWin);
     //Update du joueur
     player->Update(interfaceCommande);
 

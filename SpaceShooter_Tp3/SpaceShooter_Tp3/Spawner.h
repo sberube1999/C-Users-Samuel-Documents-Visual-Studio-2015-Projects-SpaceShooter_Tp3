@@ -23,11 +23,21 @@ namespace spaceShooter
 		INVINCIBLE,
 		SHIELD_COLOR
 	};
+	//enum Weapons
+	//{
+	//	LASER_GUN,
+	//	DEATH_RAY,
+	//	STAR_GUN,
+	//	CANON
+	//};
 	static class Spawner
 	{
 	public:
-		void SpawnMob(Enemies type, float posX, float posY);
-		void SpawnBonus(Bonus type, float posX, float posY);
+		static void SpawnMob(Enemies type);
+		static void SpawnBonus(Bonus type);
+	private:
+		float posX;
+		float posY;
 	};
 }
 //</sberube>
