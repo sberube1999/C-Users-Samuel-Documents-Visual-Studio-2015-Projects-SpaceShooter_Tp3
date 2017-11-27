@@ -97,7 +97,7 @@ bool GameScene::init(RenderWindow * const window)
     //<smasson>
     //Position initiale du joueur
     player->SetPosition(window->getSize().x / 2, window->getSize().y / 2);
-    testShape = new ConvexShape(3);
+
     testShape->setScale(100, 100);
     testShape->setFillColor(Color::Cyan);
     testShape->setOrigin(testShape->getScale().x / 2, testShape->getScale().y / 2);
@@ -159,7 +159,7 @@ void GameScene::getInputs()
 void GameScene::update()
 {
     //Updater le background
-    background.Update(*mainWin);
+    //background.Update(*mainWin);
     //Update du joueur
     player->Update(interfaceCommande);
 
@@ -172,7 +172,7 @@ void GameScene::draw()
     //Toujours important d'effacer l'écran précédent
     mainWin->clear();
     //Dessiner background
-    //background.Draw(*mainWin);
+    background.Draw(*mainWin);
     //Dessiner contenu
     //Dessiner les personnages
     //Le joueur
