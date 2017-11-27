@@ -53,8 +53,8 @@ namespace spaceShooter
 
 		Background background;
 
-		/*float leftLimit = 20;
-		float rightLimit = mainWin.getSize().x - 20;*/
+		//float leftLimit = 20;
+		//float rightLimit = mainWin.getSize().x - 20;
 		//</sberube>
 	};
 }

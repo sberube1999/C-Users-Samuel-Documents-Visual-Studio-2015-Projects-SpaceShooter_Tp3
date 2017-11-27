@@ -6,8 +6,12 @@ spaceShooter::Spaceship::Spaceship()
     maxHealth = 1;
     curHealth = maxHealth;
     shape = new ConvexShape(6);
-    shape->setScale(20, 20);
-    enable = true;
+    ConvexShape* temp = (ConvexShape*)shape;
+    temp->setPoint(0, Vector2f(0, 0));
+    temp->setPoint(1, Vector2f(45, 145));
+    temp->setPoint(2, Vector2f(-45, 145));
+    temp->setScale(0.5f, 0.5f);
+    enable = false;
 }
 
 spaceShooter::Spaceship::~Spaceship()
@@ -40,30 +44,9 @@ bool spaceShooter::Spaceship::Update()
     return curHealth > 0;
 }
 
-void spaceShooter::Spaceship::Move(Direction dir)
+void spaceShooter::Spaceship::Move(float dirX, float dirY)
 {
-    switch (dir)
-    {
-    case NONE:
-        //Rien à faire
-        break;
-    case LEFT:
-        //On bouge à gauche
-        shape->move(-1, 0);
-        break;
-    case RIGHT:
-        //On bouge à droite
-        shape->move(1, 0);
-        break;
-    case UP:
-        //On bouge en haut
-        shape->move(0, 1);
-        break;
-    case DOWN:
-        //On bouge en bas
-        shape->move(0, -1);
-        break;
-    }
+    shape->move(dirX*speed, dirY*speed);
 }
 
 void spaceShooter::Spaceship::SetPosition(float x, float y)
@@ -90,4 +73,9 @@ void spaceShooter::Spaceship::Draw(RenderWindow & mainWin)
 bool spaceShooter::Spaceship::IsEnable()
 {
     return enable;
+}
+
+void spaceShooter::Spaceship::SetEnable(const bool enable)
+{
+    this->enable = enable;
 }

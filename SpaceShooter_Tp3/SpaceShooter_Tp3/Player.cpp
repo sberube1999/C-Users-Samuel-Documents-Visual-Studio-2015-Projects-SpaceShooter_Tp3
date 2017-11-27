@@ -1,4 +1,5 @@
 #include "Player.h"
+#include "GlobalMath.h"
 
 using namespace spaceShooter;
 
@@ -20,6 +21,12 @@ Player * Player::GetInstance()
     return instance;
 }
 
+void spaceShooter::Player::SetLimits(const Vector2f point1, const Vector2f point2)
+{
+    limitMin = point1;
+    limitMax = point2;
+}
+
 void spaceShooter::Player::Notify(Subject * subject)
 {
 
@@ -28,14 +35,41 @@ void spaceShooter::Player::Notify(Subject * subject)
 bool spaceShooter::Player::Update(int commands)
 {
     bool res = Spaceship::Update();
+    Vector2f dir(0, 0);
 
-    if (commands |= 1)
+    //gauche
+    if (commands & 1)
     {
-        Move(LEFT);
+        dir.x = -1;
     }
-    if (commands |= 2)
+    //droite
+    else if (commands & 2)
     {
-        Move(RIGHT);
+        dir.x = 1;
+    }
+    //haut
+    if (commands & 4)
+    {
+        dir.y = -1;
+    }
+    //bas
+    else if (commands & 8)
+    {
+        dir.y = 1;
+    }
+
+    //Bouger
+    Move(dir.x, dir.y);
+    //Vérifier limites
+    shape->setPosition(GlobalMath::InspectPos(shape->getPosition(), limitMin, limitMax));
+
+    if (commands == 8)
+    {
+        //espace, pour les bombes
+    }
+    if (commands == 10)
+    {
+        //q, pour les changements d'armes
     }
 
     return res;

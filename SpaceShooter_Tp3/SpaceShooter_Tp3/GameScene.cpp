@@ -97,11 +97,8 @@ bool GameScene::init(RenderWindow * const window)
     //<smasson>
     //Position initiale du joueur
     player->SetPosition(window->getSize().x / 2, window->getSize().y / 2);
-
-    testShape->setScale(100, 100);
-    testShape->setFillColor(Color::Cyan);
-    testShape->setOrigin(testShape->getScale().x / 2, testShape->getScale().y / 2);
-    testShape->setPosition(window->getSize().x / 2, window->getSize().y / 2);
+    player->SetLimits(Vector2f(305, 350), Vector2f(window->getSize().x-305, window->getSize().y-70));
+    testShape = new ConvexShape(3);
     //</smasson>
     this->mainWin = window;
     isRunning = true;
@@ -145,13 +142,23 @@ void GameScene::getInputs()
         interfaceCommande |= 2;
     }
 
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         interfaceCommande |= 4;
     }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        interfaceCommande |= 8;
+    }
+
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+    {
+        interfaceCommande |= 10;
+    }
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
     {
-        interfaceCommande |= 6;
+        interfaceCommande |= 12;
     }
     //</smasson>
 }
