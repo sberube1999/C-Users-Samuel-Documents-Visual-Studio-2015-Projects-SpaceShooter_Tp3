@@ -10,7 +10,7 @@ namespace spaceShooter
     public:
         Observer();
         ~Observer();
-        virtual void Notify(Subject* subject)=0;
+      //  virtual void Notify(Subject* subject)=0;
     protected:
     };
 }

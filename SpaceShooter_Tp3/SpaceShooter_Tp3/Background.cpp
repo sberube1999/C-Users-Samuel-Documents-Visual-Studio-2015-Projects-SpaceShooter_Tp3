@@ -1,7 +1,8 @@
 // <sberube>
 #include "Background.h"
 using namespace spaceShooter;
-
+static float leftLimit;
+static float rightLimit;
 Background::Background()
 {
 
@@ -46,6 +47,9 @@ bool Background::Init(RenderWindow &win)
 	right.setOrigin(rightTexture.getSize().x / 2, rightTexture.getSize().y / 2);
 	right.setPosition(win.getSize().x - rightTexture.getSize().x / 2, rightTexture.getSize().y / 2);
 
+	// Les limites du jeu
+	leftLimit = leftTexture.getSize().x;
+	rightLimit = win.getSize().x - rightTexture.getSize().x;
 
 	return true;
 }
@@ -80,5 +84,19 @@ void Background::Draw(RenderWindow &win)
 	{
 		stars.at(i).Draw(win);
 	}
+}
+
+float Background::LeftLimit()
+{
+	return leftLimit;
+}
+float Background::RightLimit()
+{
+	return rightLimit;
+}
+void Background::SetSpeed(float speed)
+{
+	starSpeed = speed;
+	bgSpeed = speed / 2;
 }
 // </sberube>

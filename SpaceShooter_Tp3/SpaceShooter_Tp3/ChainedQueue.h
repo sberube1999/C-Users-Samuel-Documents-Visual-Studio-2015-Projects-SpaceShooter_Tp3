@@ -18,18 +18,15 @@ Utilisation: -Liste d'ennemies à mettre dans le jeu
 template <class T>
 class ChainedQueue
 {
-	struct Box
-	{
-		T value;
-		Box* next;
-		Box(const T& value, Box* next) :value(value), next(next) {}
-	};
+	
 
 	ChainedQueue(const ChainedQueue&) = delete;
 
 	//Representation
-	Box *first, *last;
+	T *data[10];
 	size_t sz;
+	size_t cap;
+	int head;
 
 public:
 
@@ -49,8 +46,10 @@ public:
 	size_t size() const;
 
 	//Fonction generatrice
-	void push(const T& value);
-	void pop();
+	void PushFront(const T& value);
+	void PushBack(const T& value);
+	void PopFront();
+	void PopBack();
 	void swap(ChainedQueue&) noexcept;
 };
 

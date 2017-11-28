@@ -13,10 +13,14 @@ namespace spaceShooter
 		bool Init(RenderWindow &win);
 		void Update(RenderWindow &win);
 		void Draw(RenderWindow &win);
+		void SetSpeed(float speed);
+		static float RightLimit();
+		static float LeftLimit();
 
 	private:
 
-		const float bgSpeed = 1;
+
+		float bgSpeed = 1;
 
 		Sprite background;
 		Texture bgTexture;
@@ -33,7 +37,8 @@ namespace spaceShooter
 		// Pour l'instant on y va avec un tableau.
 		std::vector<Star> stars;
 		const int nbStars = 200;
-		const float starSpeed = 2;
+		float starSpeed = 2;
+
 	};
 }
 // </sberube>

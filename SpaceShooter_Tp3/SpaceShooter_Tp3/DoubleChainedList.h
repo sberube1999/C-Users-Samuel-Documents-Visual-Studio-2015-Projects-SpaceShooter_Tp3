@@ -20,6 +20,7 @@ private:
 		Box* next;
 		Box* previous;
 		Box(const T& value, Box* next) :value(value), next(next) {}
+		Box() {}
 	};
 
 	DblChainedList(const DblChainedList&) = delete;

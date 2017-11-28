@@ -27,6 +27,12 @@ Scene::scenes GameScene::run()
 
 bool GameScene::init(RenderWindow * const window)
 {
+	enem.SetPosition(500, 10);
+	enem.Init("");
+	enem2.SetPosition(400, 10);
+	enem2.Init("");
+	enem3.SetPosition(600, 10);
+	enem3.Init("");
     if (!background.Init(*window))
     {
         return false;
@@ -145,7 +151,12 @@ void GameScene::getInputs()
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up) || sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
         interfaceCommande |= 4;
+		background.SetSpeed(4);
     }
+	else
+	{
+		background.SetSpeed(2);
+	}
 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down) || sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
@@ -172,6 +183,10 @@ void GameScene::update()
 
     //Updater le HUD
     UpdateHUD();
+
+	enem.Update(Vector2f(0, 0));
+	enem2.Update(Vector2f(0, 0));
+	enem3.Update(Vector2f(0, 0));
 }
 
 void GameScene::draw()
@@ -182,6 +197,9 @@ void GameScene::draw()
     background.Draw(*mainWin);
     //Dessiner contenu
     //Dessiner les personnages
+	enem.Draw(*mainWin);
+	enem2.Draw(*mainWin);
+	enem3.Draw(*mainWin);
     //Le joueur
     player->Draw(*mainWin);
     mainWin->draw(*testShape);

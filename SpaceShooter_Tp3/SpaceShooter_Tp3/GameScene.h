@@ -6,7 +6,8 @@
 #include <string>
 #include "Observer.h"
 #include "Player.h"
-
+#include "BasicEnemy.h"
+#include "DQueue.h"
 using namespace sf;
 
 namespace spaceShooter
@@ -52,9 +53,10 @@ namespace spaceShooter
 		//<sberube>
 
 		Background background;
+		BasicEnemy enem;
+		BasicEnemy enem2;
+		BasicEnemy enem3;
 
-		//float leftLimit = 20;
-		//float rightLimit = mainWin.getSize().x - 20;
 		//</sberube>
 	};
 }

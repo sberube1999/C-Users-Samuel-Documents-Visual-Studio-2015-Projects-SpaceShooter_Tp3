@@ -13,8 +13,7 @@ namespace spaceShooter
         ~Spaceship();
         bool Init(char path[]);
         virtual void Hit(int points);
-        virtual bool Update();
-        virtual void Notify(Subject* subject)=0;
+       // virtual void Notify(Subject* subject)=0;
         void Move(float dirX, float dirY);
         void SetPosition(float x, float y);
         void SetPosition(Vector2f pos);

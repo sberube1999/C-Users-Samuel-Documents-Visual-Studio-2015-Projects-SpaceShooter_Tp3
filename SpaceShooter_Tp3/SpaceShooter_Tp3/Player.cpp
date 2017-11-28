@@ -8,6 +8,12 @@ Player* Player::instance = nullptr;
 
 Player::Player() :Spaceship()
 {
+	shape = new ConvexShape(6);
+	ConvexShape* temp = (ConvexShape*)shape;
+	temp->setPoint(0, Vector2f(0, 0));
+	temp->setPoint(1, Vector2f(45, 100));
+	temp->setPoint(2, Vector2f(-45, 100));
+	temp->setScale(0.5f, 0.5f);
 }
 
 Player::~Player()
@@ -34,7 +40,6 @@ void spaceShooter::Player::Notify(Subject * subject)
 
 bool spaceShooter::Player::Update(int commands)
 {
-    bool res = Spaceship::Update();
     Vector2f dir(0, 0);
 
     //gauche
@@ -72,5 +77,5 @@ bool spaceShooter::Player::Update(int commands)
         //q, pour les changements d'armes
     }
 
-    return res;
+    return curHealth > 0;
 }

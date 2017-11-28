@@ -5,12 +5,6 @@ spaceShooter::Spaceship::Spaceship()
     speed = 2.5f;
     maxHealth = 1;
     curHealth = maxHealth;
-    shape = new ConvexShape(6);
-    ConvexShape* temp = (ConvexShape*)shape;
-    temp->setPoint(0, Vector2f(0, 0));
-    temp->setPoint(1, Vector2f(45, 145));
-    temp->setPoint(2, Vector2f(-45, 145));
-    temp->setScale(0.5f, 0.5f);
     enable = false;
 }
 
@@ -18,8 +12,6 @@ spaceShooter::Spaceship::~Spaceship()
 {
     delete shape;
     shape = nullptr;
-    delete moveIdle;
-    moveIdle = nullptr;
 }
 
 bool spaceShooter::Spaceship::Init(char path[])
@@ -36,12 +28,6 @@ void spaceShooter::Spaceship::Hit(int points)
 {
     //Faire perdre de la vie au joueur
     curHealth -= points;
-}
-
-bool spaceShooter::Spaceship::Update()
-{
-    //Retourner si le vaisseau est en vie ou ne l'est pas
-    return curHealth > 0;
 }
 
 void spaceShooter::Spaceship::Move(float dirX, float dirY)

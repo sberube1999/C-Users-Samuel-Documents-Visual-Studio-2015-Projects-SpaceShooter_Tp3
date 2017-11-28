@@ -1,15 +1,8 @@
 #pragma once
+#include "Enemy.h"
 //<sberube>
 namespace spaceShooter
 {
-	enum Enemies
-	{
-		BASIC,
-		KAMIKAZE,
-		QUEEN,
-		SHIELDER,
-		CANNON
-	};
 	enum Bonus
 	{
 		WEAPON,
@@ -23,21 +16,13 @@ namespace spaceShooter
 		INVINCIBLE,
 		SHIELD_COLOR
 	};
-	//enum Weapons
-	//{
-	//	LASER_GUN,
-	//	DEATH_RAY,
-	//	STAR_GUN,
-	//	CANON
-	//};
 	static class Spawner
 	{
 	public:
-		static void SpawnMob(Enemies type);
+		static void SetPosition(float x, float y);
+		static Enemy SpawnMob(Enemies type);
 		static void SpawnBonus(Bonus type);
 	private:
-		float posX;
-		float posY;
 	};
 }
 //</sberube>
