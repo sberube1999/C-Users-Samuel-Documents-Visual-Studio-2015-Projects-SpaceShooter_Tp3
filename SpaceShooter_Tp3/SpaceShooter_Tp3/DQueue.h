@@ -1,4 +1,5 @@
 #pragma once
+// <sberube>
 #ifndef _D_QUEUE_H_
 
 // DECLARATIONS
@@ -29,6 +30,7 @@ public:
 	//Capacite
 	bool Empty() const;
 	size_t Size() const;
+	void Reserve();
 
 	//Fonction generatrice
 	void PushFront(const T& value);
@@ -57,7 +59,16 @@ inline DQueue<T>::~DQueue()
 template<class T>
 inline DQueue<T> & DQueue<T>::operator=(const DQueue<T> &other)
 {
-
+	while (sz < other.sz)
+	{
+		Reserve();
+	}
+	for (size_t i = 0; i < other.sz; i++)
+	{
+		data[i] = other.data[i];
+	}
+	head = 0;
+	sz = other.sz;
 }
 
 template<class T>
@@ -109,23 +120,51 @@ inline size_t DQueue<T>::Size() const
 }
 
 template<class T>
+inline void DQueue<T>::Reserve()
+{
+	T *tab[cap * 2];
+	tab = data;
+	data& = tab&;
+	tab = nullptr;
+}
+
+template<class T>
 inline void DQueue<T>::PushFront(const T & value)
 {
+	if (sz == cap)
+	{
+		Reserve();
+	}
 
+	if (head == 0)
+	{
+		head = cap - 1;
+		data[head] = value;
+	}
+	else
+	{
+		head--;
+		data[head] = value;
+	}
 	sz++;
 }
 
 template<class T>
 inline void DQueue<T>::PushBack(const T & value)
 {
+	if (sz == cap)
+	{
+		Reserve();
+	}
 
+	data[(head + sz) % cap] = value;
 	sz++;
 }
 
 template<class T>
 inline void DQueue<T>::PopFront()
 {
-
+	head = (head + 1) % cap;
 	sz--;
 }
 
@@ -139,7 +178,22 @@ inline void DQueue<T>::PopBack()
 template<class T>
 inline void DQueue<T>::Swap(DQueue & other) noexcept
 {
+	T tempData* = data;
+	size_t tempSz = sz;
+	size_t tempCap = cap;
+	int tempHead = head;
 
+	data = other.data;
+	sz = other.sz;
+	cap = other.cap;
+	head = other.head;
+
+	other.data = tempData;
+	other.sz = tempSz;
+	other.cap = tempCap;
+	other.head = tempHead;
 }
 
 #endif // !_D_QUEUE_H_
+
+// </sberube>
