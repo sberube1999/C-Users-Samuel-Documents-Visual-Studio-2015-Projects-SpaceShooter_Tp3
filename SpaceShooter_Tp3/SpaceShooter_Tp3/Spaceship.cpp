@@ -65,3 +65,8 @@ void spaceShooter::Spaceship::SetEnable(const bool enable)
 {
     this->enable = enable;
 }
+
+Shape & spaceShooter::Spaceship::GetShape()
+{
+    return *shape;
+}
