@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "BasicEnemy.h"
 #include "DQueue.h"
+#include "Projectile.h"
 using namespace sf;
 
 namespace spaceShooter
@@ -46,8 +47,11 @@ namespace spaceShooter
         Text nextEnemyLabel;
         
         Player* player;
-        Shape* testShape;
 
+        //temp
+        const int NB_BASIC_PROJECTILES = 200;
+        vector<Projectile*> basicProjectiles;
+        //
         //</smasson>
 
 		//<sberube>

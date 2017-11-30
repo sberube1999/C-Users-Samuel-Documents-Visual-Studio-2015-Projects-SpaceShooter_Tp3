@@ -1,9 +1,8 @@
 #include "Weapon.h"
 
-Weapon::Weapon(const float cadency, const int nbProjs, const Projectile::ProjectileType type) :nbProjs(nbProjs), cadency(cadency), projType(type)
+Weapon::Weapon(const float cadency, const int nbProjs, const Projectile::ProjectileType type, const Weapon::WeaponType wType) :nbProjs(nbProjs), cadency(cadency), projType(type), timerDur(seconds(cadency)), myType(wType)
 {
     clock.restart();
-    timerDur = seconds(cadency);
 }
 
 Weapon::~Weapon()
@@ -13,7 +12,7 @@ Weapon::~Weapon()
 
 bool Weapon::CanShoot()
 {
-    return clock.getElapsedTime().asSeconds() > timerDur.asSeconds();
+    return clock.getElapsedTime().asSeconds() >= timerDur.asSeconds();
 }
 
 void Weapon::Shoot()
@@ -25,6 +24,16 @@ void Weapon::Shoot()
 Projectile::ProjectileType spaceShooter::Weapon::GetProjType() const
 {
     return projType;
+}
+
+Weapon::WeaponType spaceShooter::Weapon::GetType() const
+{
+    return myType;
+}
+
+int spaceShooter::Weapon::GetNbProjs()
+{
+    return nbProjs;
 }
 
 

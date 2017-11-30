@@ -11,7 +11,7 @@ namespace spaceShooter
     class Projectile :public StaticSubject
     {
     public:
-        Projectile(const Color color, const float speed, Spaceship& owner);
+        Projectile(const float x, const float y, const Color color, const float speed, Spaceship* owner);
         ~Projectile();
         static enum ProjectileType
         {
@@ -30,6 +30,7 @@ namespace spaceShooter
         void Update();
         bool IsEnable();
         void SetEnable(bool enable);
+        Vector2f GetPosition();
     private:
         Spaceship* owner;
         Shape* shape;

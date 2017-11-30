@@ -3,6 +3,8 @@
 using namespace spaceShooter;
 static float leftLimit;
 static float rightLimit;
+static float winHeight;
+
 Background::Background()
 {
 
@@ -50,6 +52,8 @@ bool Background::Init(RenderWindow &win)
 	// Les limites du jeu
 	leftLimit = leftTexture.getSize().x;
 	rightLimit = win.getSize().x - rightTexture.getSize().x;
+    // Mesures
+    winHeight = win.getSize().y;
 
 	return true;
 }
@@ -89,6 +93,10 @@ void Background::Draw(RenderWindow &win)
 float Background::LeftLimit()
 {
 	return leftLimit;
+}
+float spaceShooter::Background::WinHeight()
+{
+    return winHeight;
 }
 float Background::RightLimit()
 {

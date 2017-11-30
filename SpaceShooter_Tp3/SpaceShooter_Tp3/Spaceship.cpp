@@ -70,3 +70,8 @@ Shape & spaceShooter::Spaceship::GetShape()
 {
     return *shape;
 }
+
+int spaceShooter::Spaceship::GetCurrentHealth()
+{
+    return curHealth;
+}
