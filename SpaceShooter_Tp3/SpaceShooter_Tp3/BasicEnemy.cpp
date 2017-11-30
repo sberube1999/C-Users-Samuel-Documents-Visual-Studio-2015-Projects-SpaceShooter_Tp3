@@ -38,7 +38,7 @@ bool BasicEnemy::Update(Vector2f target)
 		if (goingRight)
 		{
 			Move(1, 0);
-			if (shape->getPosition().x >= Background::RightLimit())
+			if (shape->getPosition().x >= Background::RightLimit() - 20)
 			{
 				goingRight = false;
 			}
@@ -46,7 +46,7 @@ bool BasicEnemy::Update(Vector2f target)
 		else
 		{
 			Move(-1, 0);
-			if (shape->getPosition().x <= Background::LeftLimit())
+			if (shape->getPosition().x <= Background::LeftLimit() + 20)
 			{
 				goingRight = true;
 			}
