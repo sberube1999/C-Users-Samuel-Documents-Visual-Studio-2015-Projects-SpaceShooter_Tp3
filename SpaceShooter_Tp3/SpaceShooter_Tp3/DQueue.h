@@ -9,18 +9,25 @@ class DQueue
 	//DQueue(const DQueue&) = delete;
 
 	//Representation
-	T *data[10];
+	T *data;
 	size_t sz;
 	size_t cap;
-	int head;
+	size_t head;
 
 public:
+
+	//deque(const deque&); // A FAIRE
+	//void clear();// A FAIRE
+	//void resize(size_t); // A FAIRE
 
 	//Constructeur et affectateur
 	DQueue();
 	~DQueue();
-	DQueue& operator=(const DQueue<T>&);
-	T operator[](const int index);
+
+	//Opérateurs
+	DQueue& operator=(const DQueue<T>& other);
+	T& operator[](const size_t index);
+
 	//Accesseur
 	T& front();
 	T& back();
@@ -37,7 +44,9 @@ public:
 	void PushBack(const T& value);
 	void PopFront();
 	void PopBack();
-	void Swap(DQueue&) noexcept;
+
+	// échange
+	void Swap(DQueue& other) noexcept;
 };
 
 //DEFINITIONS
@@ -72,7 +81,7 @@ inline DQueue<T> & DQueue<T>::operator=(const DQueue<T> &other)
 }
 
 template<class T>
-T DQueue<T>::operator[](const int index)
+T& DQueue<T>::operator[](const size_t index)
 {
 	return data[(head + index) % cap];
 }
@@ -122,7 +131,7 @@ inline size_t DQueue<T>::Size() const
 template<class T>
 inline void DQueue<T>::Reserve()
 {
-	T *tab[cap * 2];
+	T *tab[cap+1 * 2];
 	tab = data;
 	data& = tab&;
 	tab = nullptr;

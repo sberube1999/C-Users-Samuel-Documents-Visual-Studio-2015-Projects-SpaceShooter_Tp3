@@ -14,33 +14,44 @@ template <class T>
 class List
 {
 private:
+	// Boîte
 	struct Box
 	{
 		T value;
 		Box* next;
 		Box* previous;
-		Box(const T& value, Box* next) :value(value), next(next) {}
-		Box() {}
+		Box(const T& value = T(), Box* next = nullptr, Box* prev = nullptr) :value(value), next(next), previous(prev) {}
+		~Box() { previous = next = nullptr; }
 	};
 
-	List(const List&) = delete;
+	//List(const List&) = delete;
 
 	//Representation
-	Box start, end;
+	Box before, after;
 	size_t sz;
 
+	//fonctions generatrices privees
+	//boite* insert(boite*, const TYPE&); //inserer avant cette boite  ++++++++++++++
+	//boite* erase(boite*); //enlever cette boite                      ++++++++++++++
 public:
+
+	// Foward declaration
+	class Iterator;
+
 	//Constructeur et affectateur
 	List();
 	~List();
 	List& operator=(const List<T>& other);
-	T& operator[](const int index);
 
 	//Accesseur
 	T& Front();
 	T& Back();
 	const T& Front() const;
 	const T& Back() const;
+
+	Iterator Start() { return Iterator(before.next); }
+	Iterator End() {return Iterator(after.previous);}
+
 
 	//Capacite
 	bool Empty() const;
@@ -54,10 +65,11 @@ public:
 	void Swap(List& other) noexcept;
 };
 
-
 template<class T>
 inline List<T>::List() : sz(0)
 {
+	before.previous = nullptr;
+	after.next = nullptr;
 }
 
 template<class T>
@@ -66,17 +78,15 @@ inline List<T>::~List()
 	// On vide la list
 	while (sz > 0)
 	{
-		popFront();
+		PopFront();
 	}
-	delete start;
-	delete end;
 }
 
 template<class T>
 inline List<T>& List<T>::operator=(const List<T>& other)
 {
 	// l'index pour parcourir la chaine.
-	Box *index = other.start.next;
+	Box *index = other.before.next;
 
 	// On vide la chaîne
 	while (sz > 0)
@@ -95,38 +105,27 @@ inline List<T>& List<T>::operator=(const List<T>& other)
 }
 
 template<class T>
-inline T& List<T>::operator[](const int index)
-{
-	Box *indexPtr = start;
-	for (size_t i = 0; i <= index; i++)
-	{
-		index = index->next;
-	}
-	return indexPtr->value;
-}
-
-template<class T>
 inline T & List<T>::Front()
 {
-	return start.next->value;
+	return before.next->value;
 }
 
 template<class T>
 inline T & List<T>::Back()
 {
-	return end.previous->value;
+	return after.previous->value;
 }
 
 template<class T>
 inline const T & List<T>::Front() const
 {
-		return start.next->value;
+		return before.next->value;
 }
 
 template<class T>
 inline const T & List<T>::Back() const
 {
-	return end.previous->value;
+	return after.previous->value;
 }
 
 template<class T>
@@ -149,11 +148,14 @@ inline void List<T>::PushFront(const T& value)
 	{
 		// Création d'une première nouvelle boîte.
 		Box *first = new Box();
-		first->next = end;
-		first->previous = start;
+		first->next = after;
+		first->previous = &before;
 
-		start.next = first;
-		end.previous = first;
+		before.next = first;
+		after.previous = first;
+
+		// On positionne l'ittérateur sur l'élément 0.
+		iterator.currIndex = first->next;
 	}
 	else
 	{
@@ -161,11 +163,11 @@ inline void List<T>::PushFront(const T& value)
 		Box *box = new Box();
 
 		// On positionne cette-ci entre le début et la première boîte.
-		box->previous = start;
-		box->next = start.next;
+		box->previous = before;
+		box->next = before.next;
 
-		start.next->previous = box;
-		start.next = box;
+		before.next->previous = box;
+		before.next = box;
 	}
 	// Il y a un élément de plus
 	sz++;
@@ -179,11 +181,12 @@ inline void List<T>::PushBack(const T& value)
 	{
 		// Création d'une première nouvelle boîte.
 		Box *first = new Box();
-		first->next = end;
-		first->previous = start;
+		first->next = &after;
+		first->previous = &before;
 
-		start.next = first;
-		end.previous = first;
+		before.next = first;
+		after.previous = first;
+
 	}
 	else
 	{
@@ -191,11 +194,11 @@ inline void List<T>::PushBack(const T& value)
 		Box *box = new Box();
 
 		// On positionne cette-ci entre la fin et la dernière boîte.
-		box->previous = end->previous;
-		box->next = end;
+		box->previous = after.previous;
+		box->next = &after;
 
-		end.previous->next = box;
-		end.previous = box;
+		after.previous->next = box;
+		after.previous = box;
 	}
 	// Il y a un élément de plus
 	sz++;
@@ -208,11 +211,11 @@ inline void List<T>::PopFront()
 	if (sz > 0)
 	{
 		// On pointe sur le premier élément
-		Box *popBox = start.next;
+		Box *popBox = before.next;
 		
 		// On l'enlève de la chaîne.
-		start.next = popBox->next;
-		popBox->next->previous = start;
+		before.next = popBox->next;
+		popBox->next->previous = &before;
 
 		// On le supprime
 		delete popBox;
@@ -226,15 +229,14 @@ inline void List<T>::PopFront()
 template<class T>
 inline void List<T>::PopBack()
 {
-	// Si il y a au moins un élément...
 	if (sz > 0)
 	{
 		// On pointe sur le dernier élément
-		Box *popBox = end.previous;
+		Box *popBox = after.previous;
 
 		// On l'enlève de la chaîne.
-		end.previous = popBox->previous;
-		popBox->previous->next = end;
+		after.previous = popBox->previous;
+		popBox->previous->next = after;
 
 		// On le supprime
 		delete popBox;
@@ -249,16 +251,66 @@ template<class T>
 inline void List<T>::Swap(List& other) noexcept
 {
 	// valeurs temporaires pour la permutation.
-	Box *first = start.next;
-	Box *last = end.previous;
+	Box *first = before.next;
+	Box *last = after.previous;
 
 	// On échange le premier et le dernier élément.
-	start.next = other.start.next;
-	end.previous = other.end.previous;
+	before.next = other.before.next;
+	after.previous = other.after.previous;
 
-	other.start.next = first;
-	other.end.prev = last;
+	other.before.next = first;
+	other.after.prev = last;
 }
 
-#endif // !_DBL_CHAINED_LIST_H_
+
+///////////////////////////////////////////////////////////
+//la classe iterator
+///////////////////////////////////////////////////////////
+
+template <class T>
+class List<T>::Iterator {
+	friend class List<T>;
+private:
+
+	Box* currIndex;
+
+public:
+
+	Iterator(Box*c = nullptr) : currIndex(c) {}
+
+	T& operator*()const //Dereference l'iterateur
+	{
+		return currIndex->value;
+	}
+
+	T* operator->()const { return &(currIndex->value); } //Autre dereference
+
+	Iterator& operator++() //++i
+	{
+		currIndex = currIndex->next; // boite suivante
+		return *this;
+	}
+
+	Iterator operator++(int) {   //i++
+		currIndex = currIndex->next; // boite suivante
+		return *this;
+	}
+
+	Iterator& operator--() //--i
+	{
+		currIndex = currIndex->previous; // boite précédente
+		return *this;
+	}
+	Iterator operator--(int) {   //i--
+		currIndex = currIndex->previous; // boite précédente
+		return *this;
+	}
+	bool operator==(const Iterator &droite)const { // comparaison d'iterateur
+		return currIndex == droite.currIndex;
+	}
+	bool operator!=(const Iterator &droite)const { // comparaison d'iterateur
+		return currIndex != droite.currIndex;
+	}
+};
+#endif // !__LIST_H_
 // </sberube>

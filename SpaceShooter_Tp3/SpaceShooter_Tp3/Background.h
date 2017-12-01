@@ -1,7 +1,7 @@
 #pragma once
 // <sberube>
 #include "Star.h"
-#include <vector>
+#include "List.h"
 namespace spaceShooter
 { 
 	class Background
@@ -35,7 +35,7 @@ namespace spaceShooter
 		const std::string rightTexturePath = "Ressources\\Background\\RightHUD.png";
 
 		// Pour l'instant on y va avec un tableau.
-		std::vector<Star> stars;
+		List<Star> stars;
 		const int nbStars = 200;
 		float starSpeed = 2;
 
