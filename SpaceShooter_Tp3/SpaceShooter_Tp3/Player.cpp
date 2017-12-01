@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "GlobalMath.h"
+#include "WeaponGenerator.h"
 
 using namespace spaceShooter;
 
@@ -8,16 +9,25 @@ Player* Player::instance = nullptr;
 
 Player::Player() :Spaceship()
 {
-	shape = new ConvexShape(6);
-	ConvexShape* temp = (ConvexShape*)shape;
-	temp->setPoint(0, Vector2f(0, 0));
-	temp->setPoint(1, Vector2f(45, 100));
-	temp->setPoint(2, Vector2f(-45, 100));
-	temp->setScale(0.5f, 0.5f);
+    //Initialisation du visuel
+    shape = new ConvexShape(6);
+    ConvexShape* temp = (ConvexShape*)shape;
+    temp->setPoint(0, Vector2f(0, 0));
+    temp->setPoint(1, Vector2f(45, 100));
+    temp->setPoint(2, Vector2f(-45, 100));
+    temp->setScale(0.5f, 0.5f);
+    //Ajout de l'arme basique du joueur
+    weapons.push_back(WeaponGenerator::GetWeapon(Weapon::WeaponType::BASIC_WEAPON));
+    curWepIndex = 0;
 }
 
 Player::~Player()
 {
+    for (Weapon* curWeapon : weapons)
+    {
+        delete curWeapon;
+    }
+    weapons.clear();
 }
 
 Player * Player::GetInstance()
@@ -27,10 +37,16 @@ Player * Player::GetInstance()
     return instance;
 }
 
+void spaceShooter::Player::KillInstance()
+{
+    delete instance;
+    instance = nullptr;
+}
+
 void spaceShooter::Player::SetLimits(const Vector2f point1, const Vector2f point2)
 {
-    limitMin = point1;
-    limitMax = point2;
+    limitMin = Vector2f(point1.x + shape->getLocalBounds().width / (2 / (shape->getScale().x)), point1.y + shape->getLocalBounds().height / (2 /** (shape->getScale().y)*/));
+    limitMax = Vector2f(point2.x - shape->getLocalBounds().width / (2 / (shape->getScale().x)), point2.y - shape->getLocalBounds().height / (2/* * (shape->getScale().y)*/));
 }
 
 void spaceShooter::Player::Notify(Subject * subject)
@@ -68,14 +84,39 @@ bool spaceShooter::Player::Update(int commands)
     //Vérifier limites
     shape->setPosition(GlobalMath::InspectPos(shape->getPosition(), limitMin, limitMax));
 
-    if (commands == 8)
+    if (commands == 16)
     {
         //espace, pour les bombes
     }
-    if (commands == 10)
+    if (commands == 32)
     {
         //q, pour les changements d'armes
     }
 
     return curHealth > 0;
+}
+
+bool spaceShooter::Player::CanShoot()
+{
+    return weapons.at(curWepIndex)->CanShoot();
+}
+
+void spaceShooter::Player::Shoot()
+{
+    weapons.at(curWepIndex)->Shoot();
+}
+
+Vector2f spaceShooter::Player::GetDirection()
+{
+    return Vector2f(0, -1);
+}
+
+Weapon::WeaponType spaceShooter::Player::GetWeaponType()
+{
+    return weapons.at(curWepIndex)->GetType();
+}
+
+int spaceShooter::Player::GetNbMunitions()
+{
+    return weapons.at(curWepIndex)->GetNbProjs();
 }

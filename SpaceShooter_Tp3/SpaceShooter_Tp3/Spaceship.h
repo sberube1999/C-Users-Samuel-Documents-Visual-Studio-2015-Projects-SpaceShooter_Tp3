@@ -22,11 +22,12 @@ namespace spaceShooter
         bool IsEnable();
         void SetEnable(const bool enable);
         Shape& GetShape();
+        int GetCurrentHealth();
     protected:
         Texture texture;
         Shape* shape; //Pointeur, car pas de constructeur par défaut
-        float speed, maxHealth, curHealth;
-        Vector2f* moveIdle;
+        float speed;
+        int maxHealth, curHealth;
         bool enable;
     };
 }

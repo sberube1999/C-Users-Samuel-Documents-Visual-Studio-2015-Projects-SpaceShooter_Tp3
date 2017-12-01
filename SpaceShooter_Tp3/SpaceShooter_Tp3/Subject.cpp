@@ -13,6 +13,7 @@ Subject::~Subject()
     {
         delete curObs;
     }
+    observers.clear();
 }
 
 void spaceShooter::Subject::Sub(Observer * subscriber)

@@ -13,6 +13,8 @@ namespace spaceShooter
         void Sub(Observer* subscriber);
         bool HasObservers() const;
     protected:
+        //temp
         vector<Observer*> observers;
+        //
     };
 }

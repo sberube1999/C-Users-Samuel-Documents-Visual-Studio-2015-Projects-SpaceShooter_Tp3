@@ -13,6 +13,7 @@ namespace spaceShooter
     {
     public:
         Game();
+        ~Game();
         int run();
         int testTest();
 

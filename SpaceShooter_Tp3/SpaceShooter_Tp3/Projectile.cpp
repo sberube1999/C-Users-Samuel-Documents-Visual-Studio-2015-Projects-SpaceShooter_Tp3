@@ -1,16 +1,22 @@
 #include "Projectile.h"
 
-spaceShooter::Projectile::Projectile(const Color color, const float speed, Spaceship & owner) :speed(speed), owner(&owner)
+spaceShooter::Projectile::Projectile(const float x, const float y, const Color color, const float speed, Spaceship * owner) :speed(speed), owner(owner)
 {
-    shape->setFillColor(color);
+    shape = new RectangleShape();
+    RectangleShape* curShape = (RectangleShape*)shape;
+    curShape->setSize(Vector2f(x, y));
+    curShape->setOrigin(curShape->getSize().x / 2, curShape->getSize().y / 2);
+    curShape->setFillColor(color);
+    curShape = nullptr;
+    delete curShape;
     isEnable = false;
 }
 
 spaceShooter::Projectile::~Projectile()
 {
     //Clean-up
+    delete shape;
     owner = nullptr;
-    delete owner, shape;
     shape = nullptr;
 }
 
@@ -18,6 +24,7 @@ void spaceShooter::Projectile::Start(const Vector2f dir, Vector2f position)
 {
     this->dir = dir;
     shape->setPosition(position);
+    isEnable = true;
 }
 
 void spaceShooter::Projectile::SetTexture(const Texture& texture)
@@ -62,7 +69,7 @@ void spaceShooter::Projectile::Update()
             if (curSpaceShip->IsEnable() && curSpaceShip->GetShape().getTextureRect().intersects(shape->getTextureRect()))
             {
                 //Notifier l'observateur
-                curObserver->Notify((Subject*)this);
+                //curObserver->Notify(this);
             }
         }
     }
@@ -76,4 +83,9 @@ bool spaceShooter::Projectile::IsEnable()
 void spaceShooter::Projectile::SetEnable(bool enable)
 {
     this->isEnable = enable;
+}
+
+Vector2f spaceShooter::Projectile::GetPosition()
+{
+    return shape->getPosition();
 }

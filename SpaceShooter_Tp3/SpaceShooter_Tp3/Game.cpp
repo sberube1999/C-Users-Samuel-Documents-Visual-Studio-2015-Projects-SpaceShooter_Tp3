@@ -10,12 +10,17 @@ Game::Game()
 {
     //On place dans le contructeur ce qui permet à la game elle-même de fonctionner
     setlocale(LC_ALL, "");
-    mainWin.create(VideoMode(LARGEUR, HAUTEUR, 32), "Platformer", Style::Titlebar);  // , Style::Titlebar); / , Style::FullScreen);
+    mainWin.create(VideoMode(LARGEUR, HAUTEUR, 32), "Space Shooter", Style::Titlebar);  // , Style::Titlebar); / , Style::FullScreen);
 
                                                                     //Synchonisation coordonnée à l'écran!  Normalement 60 frames par secondes. À faire absolument
     mainWin.setVerticalSyncEnabled(true);
     //mainWin.setFramerateLimit(60);  //Équivalent... normalement, mais pas toujours. À utiliser si la synchonisation de l'écran fonctionne mal.
     //https://www.sfml-dev.org/tutorials/2.0/window-window.php#controlling-the-framerate
+}
+
+spaceShooter::Game::~Game()
+{
+    mainWin.close();
 }
 
 int Game::testTest()

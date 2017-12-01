@@ -24,3 +24,8 @@ Vector2f spaceShooter::GlobalMath::InspectPos(Vector2f pos, Vector2f point1, Vec
 
     return res;
 }
+
+bool spaceShooter::GlobalMath::IsOutOfScreen(Vector2f  pos)
+{
+    return (pos.y < 0 || pos.y > Background::WinHeight() || pos.x < 0 || pos.x > Background::RightLimit());
+}

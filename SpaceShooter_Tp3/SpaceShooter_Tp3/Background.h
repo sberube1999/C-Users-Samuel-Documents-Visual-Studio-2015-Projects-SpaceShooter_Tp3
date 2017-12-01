@@ -16,6 +16,7 @@ namespace spaceShooter
 		void SetSpeed(float speed);
 		static float RightLimit();
 		static float LeftLimit();
+        static float WinHeight();
 
 	private:
 
