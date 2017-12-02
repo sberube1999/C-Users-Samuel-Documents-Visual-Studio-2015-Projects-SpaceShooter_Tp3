@@ -1,5 +1,6 @@
 // <sberube>
 #include "Background.h"
+#include <iostream>
 using namespace spaceShooter;
 static float leftLimit;
 static float rightLimit;
@@ -28,7 +29,7 @@ bool Background::Init(RenderWindow &win)
 		Star star;
 		star.SetPosition(rand() % (int)(background.getPosition().x + bgTexture.getSize().x / 10) + (background.getPosition().x - bgTexture.getSize().x / 2),
 					     rand() % win.getSize().y);
-		stars.PushBack(star);
+		stars.push_back(star);
 	}
 
 
@@ -66,14 +67,23 @@ void Background::Update(RenderWindow &win)
 		background.setPosition(win.getSize().x / 2, 0);
 	}
 	// les étoiles
-	for (List<Star>::Iterator i(stars.Start()); i != stars.End(); i++)
+	//for (List<Star>::Iterator i = stars.Start(); i != stars.End()++; i++)
+	//{
+	//	(*i).SetPosition((*i).GetPosition().x, (*i).GetPosition().y + starSpeed);
+	//	(*i).Update();
+	//	if ((*i).GetPosition().y > win.getSize().y)
+	//	{
+	//		(*i).SetPosition(rand() % (int)(background.getPosition().x + bgTexture.getSize().x / 10) + (background.getPosition().x - bgTexture.getSize().x / 2), 0);
+	//	}
+	//}
+	for (size_t i = 0; i < nbStars; i++)
 	{
-		i->SetPosition((*i).GetPosition().x, (*i).GetPosition().x + starSpeed);
-		i->Update();
-		if (i->GetPosition().y > win.getSize().y)
-		{
-			i->SetPosition(rand() % (int)(background.getPosition().x + bgTexture.getSize().x / 10) + (background.getPosition().x - bgTexture.getSize().x / 2), 0);
-		}
+			stars.at(i).SetPosition(stars.at(i).GetPosition().x, stars.at(i).GetPosition().y + starSpeed);
+			stars.at(i).Update();
+			if (stars.at(i).GetPosition().y > win.getSize().y)
+			{
+				stars.at(i).SetPosition(rand() % (int)(background.getPosition().x + bgTexture.getSize().x / 10) + (background.getPosition().x - bgTexture.getSize().x / 2), 0);
+			}
 	}
 }
 void Background::Draw(RenderWindow &win)
@@ -84,8 +94,10 @@ void Background::Draw(RenderWindow &win)
 	// l'image de fond
 	win.draw(background);
 	// les étoiles
-	for (List<Star>::Iterator i(stars.Start()); i != stars.End(); i++)
-		i->Draw(win);	
+	//for (List<Star>::Iterator i(stars.Start()); i != stars.End(); i++)
+	//	(*i).Draw(win);
+	for (size_t i = 0; i < nbStars; i++)
+		stars.at(i).Draw(win);
 }
 
 float Background::LeftLimit()

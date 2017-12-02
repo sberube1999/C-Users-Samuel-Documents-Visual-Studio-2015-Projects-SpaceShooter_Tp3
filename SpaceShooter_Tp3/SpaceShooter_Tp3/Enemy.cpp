@@ -10,6 +10,10 @@ Enemy::Enemy() : Spaceship::Spaceship()
 
 bool Enemy::Update(Vector2f target)
 {
+	if (shape->getPosition().y < idlePosition)
+	{
+		Move(0, 1);
+	}
 	return curHealth > 0;
 }
 

@@ -14,18 +14,19 @@ namespace SpaceShooterTest
 			int a = 0;
 			List<int> list;
 			list.PushBack(0);
-			list.PushBack(1);
-			list.PushBack(2);
-			list.PushBack(3);
-			list.PushBack(4);
-			list.PushBack(5);
-			for (List<int>::Iterator i = List<int>::Iterator(list.Start()); i != list.End(); ++i)
+			list.PushBack(0);
+			list.PushBack(0);
+			list.PushBack(0);
+			list.PushBack(0);
+			list.PushBack(0);
+			for (List<int>::Iterator i = list.Start(); i != list.End()++; ++i)
 			{
 				
-				Assert::AreEqual(*i, a);
+				Assert::AreEqual((*i), 0);
 				a++;
 			}
-			// TODO: Ici, votre code de test
+			Assert::AreEqual(6, a);
+		
 		}
 
 	};

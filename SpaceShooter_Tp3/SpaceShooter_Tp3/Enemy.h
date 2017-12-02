@@ -19,13 +19,14 @@ namespace spaceShooter
 		virtual bool Update(Vector2f target);
 		void SetColor(Color color);
 	//virtual void Shoot() = 0;
-	private:
+	protected:
 		Time lastFire;
 		Time cadency;
 		Clock fireClock;
 		bool isSlave;
 		Enemies type;
 		Color color;
+		int idlePosition = (rand() % 10 + 1) * 10 + 30;
 	};
 }
 //</sberube>
