@@ -8,6 +8,7 @@ namespace spaceShooter
     {
     public:
         static Projectile* GetProjectile(Projectile::ProjectileType type);
+        
     private:
     };
 }

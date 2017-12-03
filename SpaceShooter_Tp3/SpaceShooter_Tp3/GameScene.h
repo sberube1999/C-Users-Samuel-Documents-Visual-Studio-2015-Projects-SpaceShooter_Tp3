@@ -26,6 +26,7 @@ namespace spaceShooter
         void update();
         void draw();
         void Notify(Subject* subject);
+        void NotifyAShoot(Enemy* shooter);
 
 	private:
 
@@ -50,8 +51,11 @@ namespace spaceShooter
         
         Player* player;
 
+        //Les chances de drop
+        const int PERCENT_DROP_SCORE_BONUS = 15;
+
         //temp
-        const int NB_BASIC_PROJECTILES = 200;
+        const int NB_BASIC_PROJECTILES = 250;
         vector<Projectile*> basicProjectiles;
         const int NB_SCORE_BONUS = 25;
         vector<Bonus*> scoresBonus;

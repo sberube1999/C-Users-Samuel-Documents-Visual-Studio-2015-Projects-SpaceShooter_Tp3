@@ -7,6 +7,7 @@ namespace spaceShooter
 	{
 	public:
 		BasicEnemy();
+        ~BasicEnemy();
 		bool Update(Vector2f target);
         static bool Init(char path[]);
         void AdjustVisual();

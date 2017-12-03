@@ -29,6 +29,7 @@ GameScene::~GameScene()
     player->KillInstance();
     //Clean-up statiques
     Bonus::CleanUp();
+    Enemy::CleanUp();
     //Clean up adresses
     player = nullptr;
 }
@@ -166,6 +167,7 @@ bool GameScene::init(RenderWindow * const window)
 #pragma region:SubscribeZone
     //<smasson>
     Bonus::SubscribeToCollisions(player);
+    BasicEnemy::SubscribeToShoots(this);
     //</smasson>
 #pragma endregion
 
@@ -280,6 +282,7 @@ void GameScene::update()
         }
     }
 #pragma endregion
+    //Update des bonus
 #pragma region:BonusUpdate
     //<smasson>
     //Bonus de score
@@ -295,7 +298,7 @@ void GameScene::update()
             {
                 //Rendre le bonus inactif
                 curBonus->Disable();
-                cout << "Sortie d'un bonus de score." << endl;
+                //cout << "Sortie d'un bonus de score." << endl;
             }
         }
     }
@@ -307,9 +310,9 @@ void GameScene::update()
     //Updater le HUD
     UpdateHUD();
 
-    enem.Update(Vector2f(0, 0));
-    enem2.Update(Vector2f(0, 0));
-    enem3.Update(Vector2f(0, 0));
+    enem.Update(Vector2f(player->GetSprite()->getPosition()));
+    enem2.Update(Vector2f(player->GetSprite()->getPosition()));
+    enem3.Update(Vector2f(player->GetSprite()->getPosition()));
 }
 
 void GameScene::draw()
@@ -362,6 +365,25 @@ void GameScene::draw()
 
 void GameScene::Notify(Subject * subject)
 {
+}
+
+void spaceShooter::GameScene::NotifyAShoot(Enemy* shooter)
+{
+    //Tirer un projectile du type de celui de l'ennemi
+    switch (shooter->GetProjectileType())
+    {
+    case Projectile::ProjectileType::BASIC:
+        //On ajoute un projectile!
+        for (Projectile* curProj : basicProjectiles)
+        {
+            if (!curProj->IsEnable())
+            {
+                curProj->Start(shooter->GetDir(), shooter->GetSprite()->getPosition());
+                break;
+            }
+        }
+        break;
+    }
 }
 
 void spaceShooter::GameScene::UpdateHUD()

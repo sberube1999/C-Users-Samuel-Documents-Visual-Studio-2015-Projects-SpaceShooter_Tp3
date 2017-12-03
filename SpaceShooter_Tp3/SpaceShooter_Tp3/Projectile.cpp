@@ -56,23 +56,8 @@ void spaceShooter::Projectile::Update()
 {
     //Avancer le projectile dans la direction à sa vitesse
     shape->move(dir.x*speed, dir.y*speed);
-    //Vérifier les collisions des projectiles ici avec ses observateurs
-    //Pour chacun de mes observateurs
-    for (Observer* curObserver : GetCurObservers())
-    {
-        //Si mon observateur est un spaceship
-        if (typeid(curObserver) == typeid(Spaceship))
-        {
-            //Conversion de mon observateur en spaceship
-            Spaceship* curSpaceShip = (Spaceship*)curObserver;
-            //Si mon observateur est enable et qu'il collide avec moi, alors
-            if (curSpaceShip->IsEnable() && curSpaceShip->GetSprite()->getTextureRect().intersects(shape->getTextureRect()))
-            {
-                //Notifier l'observateur
-                //curObserver->Notify(this);
-            }
-        }
-    }
+    //Vérifier les collisions
+    //
 }
 
 bool spaceShooter::Projectile::IsEnable()

@@ -1,6 +1,10 @@
 //<sberube>
 #include "BasicEnemy.h"
 #include "Background.h"
+#include <iostream>
+#include "WeaponGenerator.h"
+#include "GameScene.h"
+
 using namespace spaceShooter;
 static float leftLimit;
 static float rightLimit;
@@ -8,6 +12,12 @@ Texture BasicEnemy::texture;
 
 BasicEnemy::BasicEnemy() : Enemy::Enemy()
 {
+    //<smasson>
+    //Déclaration des variables
+    enemyWeapon = WeaponGenerator::GetWeapon(Weapon::BASIC_WEAPON);
+
+    //Initialisations préparatoires...
+    //</smasson>
     sprite->setScale(0.35f, 0.35f);
 	speed = 3;
 	SetColor(Color::Green);
@@ -21,6 +31,9 @@ BasicEnemy::BasicEnemy() : Enemy::Enemy()
 	{
 		goingRight = false;
 	}
+}
+spaceShooter::BasicEnemy::~BasicEnemy()
+{
 }
 bool BasicEnemy::Update(Vector2f target)
 {
@@ -47,6 +60,18 @@ bool BasicEnemy::Update(Vector2f target)
 	if (sprite->getPosition().x > target.x - 20 && sprite->getPosition().x < target.x + 20)
 	{
 		// Shoot
+        //<smasson>
+        //Si l'ennemi peut tirer:
+        if (enemyWeapon->CanShoot())
+        {
+            //Avertir les scènes que nous avons tiré et tirer, évidemment
+            enemyWeapon->Shoot();
+            for (GameScene* curScene : scenes)
+            {
+                curScene->NotifyAShoot(this);
+            }
+        }
+        //</smasson>
 	}
 	return true;
 }
