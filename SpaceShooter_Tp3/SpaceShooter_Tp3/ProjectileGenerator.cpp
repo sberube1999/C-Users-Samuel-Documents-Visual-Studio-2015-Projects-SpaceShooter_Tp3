@@ -7,7 +7,7 @@ Projectile * spaceShooter::ProjectileGenerator::GetProjectile(Projectile::Projec
     switch (type)
     {
     case Projectile::ProjectileType::BASIC:
-        res = new Projectile(4.5f, 15, Player::GetInstance()->GetShape().getFillColor(), 6.5f, Player::GetInstance());
+        res = new Projectile(4.5f, 15, Player::GetInstance()->GetSprite()->getColor(), 6.5f, Player::GetInstance());
         break;
     }
 

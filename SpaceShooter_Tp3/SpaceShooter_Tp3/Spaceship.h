@@ -1,12 +1,14 @@
 #pragma once
 #include <SFML\Graphics.hpp>
-#include "Observer.h"
 
 using namespace sf;
 
 namespace spaceShooter
 {
-    class Spaceship :public Observer
+    //foward declaration
+    class Bonus;
+
+    class Spaceship
     {
     public:
         Spaceship();
@@ -21,11 +23,12 @@ namespace spaceShooter
         void Draw(RenderWindow& mainWin);
         bool IsEnable();
         void SetEnable(const bool enable);
-        Shape& GetShape();
+        Sprite* GetSprite();
         int GetCurrentHealth();
+        virtual void NotifyBonusCollision(Bonus* bonus);
     protected:
         Texture texture;
-        Shape* shape; //Pointeur, car pas de constructeur par défaut
+        Sprite* sprite; //Pointeur, car pas de constructeur par défaut
         float speed;
         int maxHealth, curHealth;
         bool enable;

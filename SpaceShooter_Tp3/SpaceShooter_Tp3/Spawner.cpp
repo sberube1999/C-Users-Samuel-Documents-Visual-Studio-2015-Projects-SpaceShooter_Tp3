@@ -30,11 +30,6 @@ Enemy Spawner::SpawnMob(Enemies type)
 	return das;
 }
 
-void Spawner::SpawnBonus(Bonus type)
-{
-
-}
-
 void Spawner::SetPosition(float x, float y)
 {
 	posX = x;

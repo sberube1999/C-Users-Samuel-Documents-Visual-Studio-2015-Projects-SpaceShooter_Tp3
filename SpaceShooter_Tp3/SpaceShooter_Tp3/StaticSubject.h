@@ -13,10 +13,10 @@ namespace spaceShooter
         StaticSubject();
         ~StaticSubject();
         void Sub(Observer* subscriber);
-        vector<Observer*>* GetCurObservers() const;
+        vector<Observer*> GetCurObservers() const;
         bool HasObservers() const;
     protected:
-        static vector<vector<Observer*>*> observers;
+        static vector<vector<Observer*>> observers;
         static int nbInstaces;
     private:
         int no;

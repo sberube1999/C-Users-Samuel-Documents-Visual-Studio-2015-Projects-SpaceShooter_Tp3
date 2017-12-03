@@ -17,6 +17,11 @@ namespace spaceShooter
         Vector2f GetDirection();
         Weapon::WeaponType GetWeaponType();
         int GetNbMunitions();
+        int GetScoreMultiplicatorValue();
+        void AddScore(int points);
+        int GetScore();
+        static bool Init(char path[]);
+        void AdjustVisual();
     private:
         Player();
         ~Player();
@@ -24,8 +29,11 @@ namespace spaceShooter
         Vector2f limitMin;
         Vector2f limitMax;
         int curWepIndex;
+        int curScorMult;
+        int score;
         //temp
         vector<Weapon*> weapons;
         //
+        static Texture texture;
     };
 }

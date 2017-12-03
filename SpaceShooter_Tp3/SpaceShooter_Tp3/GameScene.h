@@ -9,6 +9,8 @@
 #include "BasicEnemy.h"
 #include "DQueue.h"
 #include "Projectile.h"
+#include "BonusFabric.h"
+
 using namespace sf;
 
 namespace spaceShooter
@@ -51,6 +53,8 @@ namespace spaceShooter
         //temp
         const int NB_BASIC_PROJECTILES = 200;
         vector<Projectile*> basicProjectiles;
+        const int NB_SCORE_BONUS = 25;
+        vector<Bonus*> scoresBonus;
         //
         //</smasson>
 

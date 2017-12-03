@@ -11,18 +11,24 @@ using namespace spaceShooter;
 
 GameScene::GameScene()
 {
+    //Déclaration des variables
     player = Player::GetInstance();
 }
 
 GameScene::~GameScene()
 {
     //Clean-up
-    //Clear du vecteur
+    //Clear des vecteurs
     for (Projectile* curProj : basicProjectiles)
         delete curProj;
+    for (Bonus* curBonus : scoresBonus)
+        delete curBonus;
     basicProjectiles.clear();
+    scoresBonus.clear();
     //Destruction du joueur
     player->KillInstance();
+    //Clean-up statiques
+    Bonus::CleanUp();
     //Clean up adresses
     player = nullptr;
 }
@@ -61,6 +67,15 @@ bool GameScene::init(RenderWindow * const window)
     if (!font.loadFromFile("Ressources\\Fonts\\STJEDISE.ttf"))
         return false;
     //</smasson>
+
+#pragma region:textureLoad
+    if (!ScoreBonus::Init("Ressources\\Textures\\Other\\Multiplicator.png"))
+        return false;
+    if (!Player::Init("Ressources\\Textures\\Actors\\Ship.png"))
+        return false;
+    if (!BasicEnemy::Init("Ressources\\Textures\\Actors\\Ship.png"))
+        return false;
+#pragma endregion
 
 #pragma region HUD
     //<smasson>
@@ -121,17 +136,38 @@ bool GameScene::init(RenderWindow * const window)
 
 #pragma endregion
 
+    //Initialisation des bonus
+#pragma region:BonusInit
+    for (int i = 0; i < NB_SCORE_BONUS; ++i)
+    {
+        scoresBonus.push_back(BonusFabric::GetBonus(Bonus::BonusType::ScoreBonus_Type));
+    }
+#pragma endregion
+
     //Initialisation du random time
     srand(time(NULL));
 
     //<smasson>
-    //Position initiale du joueur
+    //temp
+    enem.AdjustVisual();
+    enem2.AdjustVisual();
+    enem3.AdjustVisual();
+    //
+
+    //Initialisation du joueur
+    player->AdjustVisual();
     player->SetPosition(window->getSize().x / 2, window->getSize().y / 2);
     player->SetLimits(Vector2f(Background::LeftLimit(), 350),
         Vector2f(Background::RightLimit(), Background::WinHeight()));
     //</smasson>
     this->mainWin = window;
     isRunning = true;
+
+#pragma region:SubscribeZone
+    //<smasson>
+    Bonus::SubscribeToCollisions(player);
+    //</smasson>
+#pragma endregion
 
     return true;
 }
@@ -209,7 +245,7 @@ void GameScene::getInputs()
                 //Si le projectile est inactif
                 if (!curProj->IsEnable())
                 {
-                    curProj->Start(player->GetDirection(), player->GetShape().getPosition());
+                    curProj->Start(player->GetDirection(), player->GetSprite()->getPosition());
                     //On break, car nous avons trouvé notre projectile
                     break;
                 }
@@ -237,15 +273,34 @@ void GameScene::update()
             //Si le projectile sort des limites de l'écran
             if (GlobalMath::IsOutOfScreen(curProj->GetPosition()))
             {
-                //Rendre le projectile disable
+                //Rendre le projectile inactif
                 curProj->SetEnable(false);
-                cout << "Sortie d'un projectile." << endl;
+                //cout << "Sortie d'un projectile." << endl;
             }
         }
     }
 #pragma endregion
-    //
-
+#pragma region:BonusUpdate
+    //<smasson>
+    //Bonus de score
+    for (Bonus* curBonus : scoresBonus)
+    {
+        //Si le bonus est actif
+        if (curBonus->IsEnable())
+        {
+            //Updater ce bonus
+            curBonus->Update();
+            //Si ce bonus est hors de l'écran de jeu
+            if (GlobalMath::IsOutOfScreen(curBonus->GetPos()))
+            {
+                //Rendre le bonus inactif
+                curBonus->Disable();
+                cout << "Sortie d'un bonus de score." << endl;
+            }
+        }
+    }
+    //</smasson>
+#pragma endregion
     //Update du joueur
     player->Update(interfaceCommande);
 
@@ -275,6 +330,16 @@ void GameScene::draw()
             curProj->Draw(*mainWin);
         }
     }
+    //Dessiner les bonus
+    for (Bonus* curBonus : scoresBonus)
+    {
+        //Si le bonus est actif
+        if (curBonus->IsEnable())
+        {
+            //Dessiner le bonus
+            curBonus->Draw(*mainWin);
+        }
+    }
     //Dessiner les personnages
     enem.Draw(*mainWin);
     enem2.Draw(*mainWin);
@@ -302,8 +367,10 @@ void GameScene::Notify(Subject * subject)
 void spaceShooter::GameScene::UpdateHUD()
 {
     //<smasson>
-    scoreMultiplicatorLabel.setString("Score Bonus: \n" + std::to_string(default));
-    currentScoreLabel.setString("Score: \n" + std::to_string(default));
+    //Le multiplicateur de score
+    scoreMultiplicatorLabel.setString("Score Bonus: \n" + std::to_string(player->GetScoreMultiplicatorValue()));
+    //Le score courant
+    currentScoreLabel.setString("Score: \n" + std::to_string(player->GetScore()));
     //Le nombre de points de vie restants
     int playerHealthPoints;
     lifesLabel.setString("Health Points: \n" + std::to_string(default));

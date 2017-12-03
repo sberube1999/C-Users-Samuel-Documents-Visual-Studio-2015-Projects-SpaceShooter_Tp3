@@ -15,6 +15,6 @@ bool Enemy::Update(Vector2f target)
 
 void Enemy::SetColor(Color color)
 {
-	shape->setFillColor(color);
+	sprite->setColor(color);
 }
 //</sberube>

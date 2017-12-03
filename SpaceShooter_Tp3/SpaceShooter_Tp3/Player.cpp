@@ -5,20 +5,16 @@
 using namespace spaceShooter;
 
 Player* Player::instance = nullptr;
+Texture Player::texture;
 
 
 Player::Player() :Spaceship()
 {
-    //Initialisation du visuel
-    shape = new ConvexShape(6);
-    ConvexShape* temp = (ConvexShape*)shape;
-    temp->setPoint(0, Vector2f(0, 0));
-    temp->setPoint(1, Vector2f(45, 100));
-    temp->setPoint(2, Vector2f(-45, 100));
-    temp->setScale(0.5f, 0.5f);
     //Ajout de l'arme basique du joueur
     weapons.push_back(WeaponGenerator::GetWeapon(Weapon::WeaponType::BASIC_WEAPON));
     curWepIndex = 0;
+    curScorMult = 1;
+    score = 0;
 }
 
 Player::~Player()
@@ -45,8 +41,8 @@ void spaceShooter::Player::KillInstance()
 
 void spaceShooter::Player::SetLimits(const Vector2f point1, const Vector2f point2)
 {
-    limitMin = Vector2f(point1.x + shape->getLocalBounds().width / (2 / (shape->getScale().x)), point1.y + shape->getLocalBounds().height / (2 /** (shape->getScale().y)*/));
-    limitMax = Vector2f(point2.x - shape->getLocalBounds().width / (2 / (shape->getScale().x)), point2.y - shape->getLocalBounds().height / (2/* * (shape->getScale().y)*/));
+    limitMin = Vector2f(point1.x + sprite->getTexture()->getSize().x / (2 / (sprite->getScale().x)), point1.y - sprite->getTexture()->getSize().y/16 /*/ (2 * (sprite->getScale().y))*/);
+    limitMax = Vector2f(point2.x - sprite->getTexture()->getSize().x / (2 / (sprite->getScale().x)), point2.y - sprite->getTexture()->getSize().y / (14 * (sprite->getScale().y)));
 }
 
 void spaceShooter::Player::Notify(Subject * subject)
@@ -82,7 +78,7 @@ bool spaceShooter::Player::Update(int commands)
     //Bouger
     Move(dir.x, dir.y);
     //Vérifier limites
-    shape->setPosition(GlobalMath::InspectPos(shape->getPosition(), limitMin, limitMax));
+    sprite->setPosition(GlobalMath::InspectPos(sprite->getPosition(), limitMin, limitMax));
 
     if (commands == 16)
     {
@@ -119,4 +115,33 @@ Weapon::WeaponType spaceShooter::Player::GetWeaponType()
 int spaceShooter::Player::GetNbMunitions()
 {
     return weapons.at(curWepIndex)->GetNbProjs();
+}
+
+int spaceShooter::Player::GetScoreMultiplicatorValue()
+{
+    return curScorMult;
+}
+
+void spaceShooter::Player::AddScore(int points)
+{
+    score += (points*curScorMult);
+}
+
+int spaceShooter::Player::GetScore()
+{
+    return score;
+}
+
+bool spaceShooter::Player::Init(char path[])
+{
+    if (!texture.loadFromFile(path))
+        return false;
+    return true;
+}
+
+void spaceShooter::Player::AdjustVisual()
+{
+    sprite->setTexture(texture);
+    sprite->setScale(0.4f, 0.4f);
+    sprite->setOrigin(texture.getSize().x/2, texture.getSize().y/2);
 }
