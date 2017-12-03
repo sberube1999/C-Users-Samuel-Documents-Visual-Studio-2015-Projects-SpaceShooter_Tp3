@@ -7,7 +7,12 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace algoPart;
 
 namespace SpaceShooterTest
+			}
+<<<<<<< .mine
 {
+=======
+{		
+>>>>>>> .theirs
     TEST_CLASS(UnitTest1)
     {
     public:

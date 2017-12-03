@@ -89,9 +89,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Background.cpp" />
+    <ClCompile Include="BasicEnemy.cpp" />
     <ClCompile Include="Bonus.cpp" />
+    <ClCompile Include="BonusFabric.cpp" />
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="EndScreen.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="GameStyle.cpp" />
@@ -100,20 +103,28 @@
     <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="ProjectileGenerator.cpp" />
+    <ClCompile Include="ScoreBonus.cpp" />
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Star.cpp" />
     <ClCompile Include="StaticSubject.cpp" />
     <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Testeur.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="WeaponGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
+    <ClInclude Include="BasicEnemy.h" />
     <ClInclude Include="Bonus.h" />
+    <ClInclude Include="BonusFabric.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="ChainedQueue.h" />
     <ClInclude Include="DoubleChainedList.h" />
     <ClInclude Include="EndScreen.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="GameStyle.h" />
@@ -121,13 +132,19 @@
     <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Observer.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Projectile.h" />
+    <ClInclude Include="ProjectileGenerator.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="ScoreBonus.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Spawner.h" />
+    <ClInclude Include="Stack.h" />
     <ClInclude Include="Star.h" />
     <ClInclude Include="StaticSubject.h" />
     <ClInclude Include="Subject.h" />
     <ClInclude Include="Testeur.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="WeaponGenerator.h" />
   </ItemGroup>
   <ItemGroup>
     <Font Include="Ressources\Fonts\STJEDISE.TTF" />
@@ -136,6 +153,8 @@
     <Image Include="Ressources\Background\Background.jpg" />
     <Image Include="Ressources\Background\LeftHUD.png" />
     <Image Include="Ressources\Background\RightHUD.png" />
+    <Image Include="Ressources\Textures\Actors\Ship.png" />
+    <Image Include="Ressources\Textures\Other\Multiplicator.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -12,7 +12,6 @@ namespace spaceShooter
         void AdjustVisual();
 	private:
 		bool goingRight;
-		int idlePosition = rand() % 10 + 1;
         static Texture texture;
 	};
 }
