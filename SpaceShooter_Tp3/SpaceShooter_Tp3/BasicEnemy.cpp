@@ -25,7 +25,7 @@ BasicEnemy::BasicEnemy() : Enemy::Enemy()
 bool BasicEnemy::Update(Vector2f target)
 {
 	Enemy::Update(target);
-	if (shape->getPosition().y >= idlePosition)
+	if (sprite->getPosition().y >= idlePosition)
 	{
 		if (goingRight)
 		{

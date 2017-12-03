@@ -10,7 +10,7 @@ Enemy::Enemy() : Spaceship::Spaceship()
 
 bool Enemy::Update(Vector2f target)
 {
-	if (shape->getPosition().y < idlePosition)
+	if (sprite->getPosition().y < idlePosition)
 	{
 		Move(0, 1);
 	}
